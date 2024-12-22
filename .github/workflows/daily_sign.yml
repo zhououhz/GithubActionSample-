@@ -13,22 +13,14 @@ permissions:
   contents: read
 
 jobs:
-  build:
 
-    runs-on: ubuntu-latest
-
+  pyinstaller-build:
+    runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.12"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run weather Report
-      run: |
-        python daily_sign.py
-      env:
-        JD_COOKIE: ${{ secrets.JD_COOKIE }}
+      - name: Create Executable
+        uses: sayyid5416/pyinstaller@v1
+        with:
+          python_ver: '3.12'
+          spec: 'love_heart.py'
+          upload_exe_with_name: 'love_heart'
+          options: --onefile, --name "love_heart", --windowed,
